@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aiaiba.org - 专业AI充值服务平台</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --bg-color: #f8fafc;
+            --text-main: #0f172a;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --accent: #dc2626; 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 按钮通用样式 */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+        .btn-primary { background-color: var(--primary-color); color: var(--white); }
+        .btn-primary:hover { background-color: var(--secondary-color); }
+        .btn-outline { border: 2px solid var(--primary-color); color: var(--primary-color); background: #fff;}
+
+        /* [复制] 小按钮样式 */
+        .btn-copy {
+            background-color: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-left: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-copy:active { transform: scale(0.95); }
+
+        /* =========================================
+           新增加的顶部包裹层：实现背景自然过渡
+           ========================================= */
+        .top-section-wrapper {
+            /* 统一的背景渐变，覆盖 Header 和 Hero */
+            background: linear-gradient(to bottom, #eff6ff 0%, #ffffff 100%);
+            padding-bottom: 20px;
+        }
+
+        /* 顶部 Header：去掉背景和阴影，实现透明 */
+        header { 
+            background: transparent; /* 透明背景 */
+            box-shadow: none;       /* 去掉阴影 */
+            text-align: center;
+            padding: 40px 0 20px;   /* 增加顶部距离，让它看起来不像导航栏，更像大标题 */
+        }
+        
+        /* 品牌大标题：特大号 */
+        .brand-title {
+            font-size: 3rem; /* 【修改点】字体放大到 3rem */
+            font-weight: 900;
+            color: var(--primary-color);
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        /* Hero 区域：去掉之前的背景设置，依赖父容器 */
+        .hero {
+            text-align: center;
+            background: transparent; /* 透明 */
+            padding-top: 0;
+        }
+
+        /* 副标题 */
+        .hero h1 {
+            font-size: 1.5rem; 
+            margin-bottom: 20px;
+            color: var(--text-main);
+            font-weight: 700;
+            opacity: 0.9;
+        }
+
+        /* 特性标签行 */
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tag { 
+            background: #dbeafe; 
+            color: #1e40af; 
+            padding: 5px 12px; 
+            border-radius: 6px; 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+        }
+
+        /* 按钮与微信提示行 */
+        .action-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .wx-info {
+            font-size: 0.95rem;
+            color: #475569;
+            background: rgba(255,255,255, 0.8); /* 半透明白底 */
+            border: 1px solid #e2e8f0;
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .wx-highlight {
+            color: var(--accent);
+            font-weight: bold;
+            margin: 0 5px;
+        }
+
+        /* 产品列表 */
+        .products { padding: 20px 0 60px; }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 强制一行4列 */
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.1); border-color: var(--primary-color); }
+
+        .recommend-badge {
+            position: absolute; top: 0; right: 0;
+            background: #f59e0b; color: white;
+            padding: 4px 12px; font-size: 0.75rem;
+            border-bottom-left-radius: 10px; border-top-right-radius: 10px;
+            font-weight: bold;
+        }
+
+        .card h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 800; }
+        .card .desc { color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; flex-grow: 1; }
+        .price { font-size: 1.8rem; color: var(--accent); font-weight: 800; display: block; margin-bottom: 20px; }
+        .card .btn { width: 100%; text-align: center; }
+
+        .footer { background: #1e293b; color: #94a3b8; padding: 40px 0 20px; text-align: center; margin-top: 50px;}
+
+        /* 响应式适配 */
+        @media (max-width: 900px) {
+            .action-row { flex-direction: column; gap: 15px; }
+        }
+        @media (max-width: 768px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+            .brand-title { font-size: 2rem; } /* 手机端稍微缩小一点，防止换行太难看 */
+            .hero h1 { font-size: 1.1rem; padding: 0 10px; }
+            .card { padding: 15px; }
+            .tag { font-size: 0.8rem; padding: 4px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-section-wrapper">
+        
+        <header>
+            <div class="container">
+                <div class="brand-title">Aiaiba.org-专业 AI 充值平台</div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="container">
+                <h1>ChatGPT / Claude / Gemini / Grok一站式充值服务平台</h1>
+
+                <div class="hero-features">
+                    <span class="tag">🛡️ 不封号</span>
+                    <span class="tag">🔒 不泄露账号</span>
+                    <span class="tag">⚡ 秒速自动发货</span>
+                    <span class="tag">✅ 售后无忧</span>
+                </div>
+                
+                <div class="action-row">
+                    <div>
+                        <a href="#products" class="btn btn-primary">💎 选购套餐</a>
+                        <a href="#" class="btn btn-outline" style="margin-left: 5px;">📺 教程</a>
+                    </div>
+                    
+                    <div class="wx-info">
+                        商店进不去联系客服微信：<span class="wx-highlight" id="wx-id">minklin</span>
+                        <button class="btn-copy" onclick="copyWx()">复制</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section id="products" class="products">
+        <div class="container">
+            <div class="product-grid">
+                <div class="card" style="border-color: #2563eb;">
+                    <div class="recommend-badge">🔥 热销推荐</div>
+                    <h3>ChatGPT Plus</h3>
+                    <p class="desc">OpenAI官方正规代充，独享账号，稳定不封号。</p>
+                    <div>
+                        <span class="price">¥168</span>
+                        <a href="#" class="btn btn-primary">立即购买</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Gemini Pro</h3>
+                    <p class="desc">Google最强模型，100万上下文，深度推理能力。</p>
+                    <div>
+                        <span class="price">¥168</span>
+                        <a href="#" class="btn btn-primary">立即购买</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Claude Pro</h3>
+                    <p class="desc">代码之神，超长文本分析，开发者必备工具。</p>
+                    <div>
+                        <span class="price">¥188</span>
+                        <a href="#" class="btn btn-primary">立即购买</a>
+                    </div>
+                </div>
+                 <div class="card">
+                    <h3>Grok</h3>
+                    <p class="desc">马斯克xAI出品，实时联网推特信息，风格幽默。</p>
+                    <div>
+                        <span class="price">¥180</span>
+                        <a href="#" class="btn btn-primary">立即购买</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div style="background:#f1f5f9; padding: 20px 0; text-align:center; color:#64748b; font-size:0.9rem;">
+        <div class="container">
+            ✅ 50000+ 用户选择 Aiaiba &nbsp;&nbsp;|&nbsp;&nbsp; 🚀 24小时自动发货 &nbsp;&nbsp;|&nbsp;&nbsp; 💳 支持微信/支付宝
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <h3>Aiaiba 官方平台</h3>
+            <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 20px;">
+                © 2024-2026 Aiaiba. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function copyWx() {
+            const wxId = document.getElementById('wx-id').innerText;
+            navigator.clipboard.writeText(wxId).then(() => {
+                alert('微信号 ' + wxId + ' 已复制！\n请打开微信添加好友。');
+            }).catch(err => {
+                console.error('复制失败', err);
+                alert('复制失败，请手动复制：minklin');
+            });
+        }
+    </script>
+
+</body>
+</html>
