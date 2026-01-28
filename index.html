@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -44,6 +44,8 @@
         }
         .btn-primary { background-color: var(--primary-color); color: var(--white); }
         .btn-primary:hover { background-color: var(--secondary-color); }
+        .btn-warning { background-color: #f59e0b; color: white; }
+        .btn-warning:hover { background-color: #d97706; }
         .btn-outline { border: 2px solid var(--primary-color); color: var(--primary-color); background: #fff;}
 
         /* [复制] 小按钮样式 */
@@ -59,40 +61,33 @@
         }
         .btn-copy:active { transform: scale(0.95); }
 
-        /* =========================================
-           新增加的顶部包裹层：实现背景自然过渡
-           ========================================= */
+        /* 顶部包裹层 */
         .top-section-wrapper {
-            /* 统一的背景渐变，覆盖 Header 和 Hero */
             background: linear-gradient(to bottom, #eff6ff 0%, #ffffff 100%);
             padding-bottom: 20px;
         }
 
-        /* 顶部 Header：去掉背景和阴影，实现透明 */
         header { 
-            background: transparent; /* 透明背景 */
-            box-shadow: none;       /* 去掉阴影 */
+            background: transparent; 
+            box-shadow: none;       
             text-align: center;
-            padding: 40px 0 20px;   /* 增加顶部距离，让它看起来不像导航栏，更像大标题 */
+            padding: 40px 0 20px;   
         }
         
-        /* 品牌大标题：特大号 */
         .brand-title {
-            font-size: 3rem; /* 【修改点】字体放大到 3rem */
+            font-size: 3rem; 
             font-weight: 900;
             color: var(--primary-color);
             letter-spacing: -1px;
             line-height: 1.2;
         }
 
-        /* Hero 区域：去掉之前的背景设置，依赖父容器 */
         .hero {
             text-align: center;
-            background: transparent; /* 透明 */
+            background: transparent;
             padding-top: 0;
         }
 
-        /* 副标题 */
         .hero h1 {
             font-size: 1.5rem; 
             margin-bottom: 20px;
@@ -101,7 +96,6 @@
             opacity: 0.9;
         }
 
-        /* 特性标签行 */
         .hero-features {
             display: flex;
             justify-content: center;
@@ -119,7 +113,6 @@
             font-weight: 600; 
         }
 
-        /* 按钮与微信提示行 */
         .action-row {
             display: flex;
             justify-content: center;
@@ -131,7 +124,7 @@
         .wx-info {
             font-size: 0.95rem;
             color: #475569;
-            background: rgba(255,255,255, 0.8); /* 半透明白底 */
+            background: rgba(255,255,255, 0.8);
             border: 1px solid #e2e8f0;
             padding: 8px 15px;
             border-radius: 6px;
@@ -146,11 +139,11 @@
         }
 
         /* 产品列表 */
-        .products { padding: 20px 0 60px; }
+        .products { padding: 20px 0 40px; }
         
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 强制一行4列 */
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
 
@@ -182,15 +175,111 @@
         .price { font-size: 1.8rem; color: var(--accent); font-weight: 800; display: block; margin-bottom: 20px; }
         .card .btn { width: 100%; text-align: center; }
 
-        .footer { background: #1e293b; color: #94a3b8; padding: 40px 0 20px; text-align: center; margin-top: 50px;}
+        /* 三步流程样式 */
+        .steps-section {
+            padding: 60px 0;
+            background-color: #fff;
+            border-top: 1px solid #f1f5f9;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 40px;
+        }
 
-        /* 响应式适配 */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .step-item {
+            padding: 20px;
+        }
+
+        .step-num {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+
+        .step-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .step-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* 视频弹窗 CSS 样式 */
+        .video-modal {
+            display: none; 
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85); 
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-content {
+            background-color: #000;
+            padding: 0;
+            border-radius: 12px;
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            /* 取消 aspect-ratio，让视频自己决定高宽，或者保持 16/9 也可以 */
+            aspect-ratio: 16 / 9; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10001;
+        }
+        .close-btn:hover { color: var(--accent); }
+
+        .footer { background: #1e293b; color: #94a3b8; padding: 40px 0 20px; text-align: center; margin-top: 0;}
+
         @media (max-width: 900px) {
             .action-row { flex-direction: column; gap: 15px; }
+            .steps-grid { grid-template-columns: 1fr; gap: 40px; }
         }
         @media (max-width: 768px) {
             .product-grid { grid-template-columns: repeat(2, 1fr); }
-            .brand-title { font-size: 2rem; } /* 手机端稍微缩小一点，防止换行太难看 */
+            .brand-title { font-size: 2rem; } 
             .hero h1 { font-size: 1.1rem; padding: 0 10px; }
             .card { padding: 15px; }
             .tag { font-size: 0.8rem; padding: 4px 8px; }
@@ -220,8 +309,11 @@
                 
                 <div class="action-row">
                     <div>
-                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" class="btn btn-primary">💎 选购套餐</a>
-                        <a href="#" class="btn btn-outline" style="margin-left: 5px;">📺 教程</a>
+                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" target="_blank" class="btn btn-primary">💎 购买卡密</a>
+                        
+                        <a href="#" target="_blank" class="btn btn-warning" style="margin-left: 10px;">⚡ 点击激活</a>
+                        
+                        <a href="javascript:void(0)" onclick="openVideo()" class="btn btn-outline" style="margin-left: 10px;">📺 教程</a>
                     </div>
                     
                     <div class="wx-info">
@@ -242,7 +334,7 @@
                     <p class="desc">OpenAI官方正规代充，独享账号，稳定不封号。</p>
                     <div>
                         <span class="price">¥168</span>
-                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" class="btn btn-primary">立即购买</a>
+                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" target="_blank" class="btn btn-primary">立即购买</a>
                     </div>
                 </div>
                 <div class="card">
@@ -250,7 +342,7 @@
                     <p class="desc">Google最强模型，100万上下文，深度推理能力。</p>
                     <div>
                         <span class="price">¥168</span>
-                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" class="btn btn-primary">立即购买</a>
+                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" target="_blank" class="btn btn-primary">立即购买</a>
                     </div>
                 </div>
                 <div class="card">
@@ -258,7 +350,7 @@
                     <p class="desc">代码之神，超长文本分析，开发者必备工具。</p>
                     <div>
                         <span class="price">¥188</span>
-                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" class="btn btn-primary">立即购买</a>
+                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" target="_blank" class="btn btn-primary">立即购买</a>
                     </div>
                 </div>
                  <div class="card">
@@ -266,8 +358,32 @@
                     <p class="desc">马斯克xAI出品，实时联网推特信息，风格幽默。</p>
                     <div>
                         <span class="price">¥180</span>
-                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" class="btn btn-primary">立即购买</a>
+                        <a href="https://fe.dtyuedan.cn/shop/CZTTFS3B" target="_blank" class="btn btn-primary">立即购买</a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section">
+        <div class="container">
+            <h2 class="section-title">ChatGPT Plus 充值三步完成</h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <h3>第一步：购买卡密</h3>
+                    <p>点击上方“购买卡密”按钮，选择套餐完成付款，系统自动发货。</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <h3>第二步：登录账号</h3>
+                    <p>登录您的 ChatGPT 官方账号，确保账号状态正常。</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <h3>第三步：激活会员</h3>
+                    <p>点击下方按钮输入卡密，即可立即开通。</p>
+                    <a href="#" target="_blank" class="btn btn-primary">🚀 点击激活 Plus 会员</a>
                 </div>
             </div>
         </div>
@@ -288,6 +404,18 @@
         </div>
     </footer>
 
+    <div id="videoModal" class="video-modal" onclick="closeVideo(event)">
+        <div class="video-content">
+            <span class="close-btn" onclick="closeVideo(event)">&times;</span>
+            
+            <video id="myVideo" width="100%" height="100%" controls>
+                <source src="tutorial.mp4" type="video/mp4">
+                您的浏览器不支持 HTML5 视频。
+            </video>
+            
+        </div>
+    </div>
+
     <script>
         function copyWx() {
             const wxId = document.getElementById('wx-id').innerText;
@@ -298,8 +426,27 @@
                 alert('复制失败，请手动复制：minklin');
             });
         }
+
+        // 打开视频弹窗
+        function openVideo() {
+            document.getElementById('videoModal').style.display = 'flex';
+        }
+
+        // 关闭视频弹窗 - 修改版：适配本地视频
+        function closeVideo(event) {
+            // 如果点击的是背景(video-modal) 或者 X号(close-btn)，则关闭
+            if (event.target.id === 'videoModal' || event.target.className === 'close-btn') {
+                document.getElementById('videoModal').style.display = 'none';
+                
+                // 暂停视频
+                var video = document.getElementById("myVideo");
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0; // 重置进度
+                }
+            }
+        }
     </script>
 
 </body>
-
 </html>
